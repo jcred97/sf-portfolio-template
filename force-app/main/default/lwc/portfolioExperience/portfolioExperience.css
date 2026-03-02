@@ -3,119 +3,111 @@
     border: none;
     box-sizing: border-box;
     animation: fadeIn 1s;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
-:host {
-    --sds-c-card-color-background: #27272a00;
-    --slds-c-card-color-border: #27272a00;
-    --slds-c-card-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0);
-}
-
-.no-hover {
-    pointer-events: none;
-}
-
-.container {
-    max-width: 90vw;
+.experience-container {
+    max-width: 1200px;
     margin: auto;
-    padding: 5rem 2rem; 
-
-    position: relative;
-    padding-top: 2rem;
+    padding: 4rem 2rem;
     display: grid;
-    align-items: center;
+    grid-template-columns: 1fr;
     gap: 2rem;
-    pointer-events: none;
 }
 
-.container .content {
-    color: #ccc;
+@media (min-width: 1024px) {
+    .experience-container {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
-.container .content .contentExperience{
-    padding: 1rem;
-    background-color: #27272a00;
-    border: 2px solid transparent;
-    border-radius: 15px;
+.experience-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2rem;
     transition: all 0.3s ease;
-    pointer-events: auto;
 }
 
-.container .content .contentExperience:hover {
-    background-color: #323232;
-    border-color: #fff;
-    pointer-events: auto;
+.experience-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
-.companyLogo {
-    display: grid;
+.card-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
 }
 
-.companyLogo lightning-formatted-rich-text{
-    justify-self: center;
+.logo img {
+    max-height: 70px;
+    object-fit: contain;
 }
 
-lightning-card h1 {
-    font-size: 1.2rem;
+.role {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
 }
 
-lightning-card h2 {
-    font-size: 1rem;
-    padding-bottom: 1rem;
-}
-
-lightning-card h3 {
-    font-size: 1rem;
-}
-
-lightning-card h4 {
-    font-size: 1rem;
-    padding-bottom: 1rem;
-}
-
-lightning-card lightning-formatted-rich-text {
+.date {
     font-size: 0.9rem;
+    color: #9ca3af;
+    margin-bottom: 0.75rem;
 }
 
-
-/*
-
-.blue-background-icon-color {
-    --sds-c-icon-color-background: #1d4ed8;
+.company {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #e5e7eb;
 }
 
-.white-foreground-default-color {
-    --sds-c-icon-color-foreground-default: #fff;
+.location {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin-bottom: 1.25rem;
 }
 
-.slds-timeline__item_task:before {
-    background-color: #ccc;
+.description {
+    font-size: 0.9rem;
+    color: #d1d5db;
+    line-height: 1.6;
 }
 
-
-lightning-formatted-rich-text {
-    background-color: #ccc;
+.tech-stack {
+    margin-top: 6px;
+    margin-bottom: 12px;
 }
 
-
-div p{
-    color: #ccc;
+.tech-label {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    color: #7dd3fc;
 }
 
-.container .content article {
-    background-color: #27272a00;
-    border: 2px solid transparent;
-    border-radius: 15px;
-    transition: all 0.3s ease;
-    pointer-events: auto;
+.tech-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.container .content article:hover {
-    background-color: #323232;
-    border-color: #fff;
-    pointer-events: auto;
-}*/
+.tech-pill {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    background: rgba(125, 211, 252, 0.15);
+    border: 1px solid rgba(125, 211, 252, 0.4);
+    color: #7dd3fc;
+    transition: all 0.2s ease;
+}
+
+.tech-pill:hover {
+    background: rgba(125, 211, 252, 0.25);
+    transform: translateY(-2px);
+}
 
 @keyframes fadeIn {
     from {

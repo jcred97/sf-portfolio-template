@@ -5,6 +5,15 @@ export default class PortfolioExperience extends LightningElement {
     @api recordId;
     workExperienceList;
 
+    renderedCallback() {
+        this.workExperienceList?.forEach((work, index) => {
+            const logoContainer = this.template.querySelectorAll('.logo')[index];
+            if (logoContainer && work.CompanyLogo) {
+                logoContainer.innerHTML = work.CompanyLogo;
+            }
+        });
+    }
+
     @wire(getRelatedListRecords, {
         parentRecordId: '$recordId',
         relatedListId: 'WorkExperience__r',
@@ -17,6 +26,7 @@ export default class PortfolioExperience extends LightningElement {
             'WorkExperience__c.Description__c',
             'WorkExperience__c.IsCurrent__c',
             'WorkExperience__c.CompanyLogo__c',
+            'WorkExperience__c.Tech_Stack__c'
         ]
     })WorkExperienceHandler({data, error}){
         if (data) {
@@ -31,20 +41,31 @@ export default class PortfolioExperience extends LightningElement {
 
     formatExperience(data){
         this.workExperienceList = data.records.map(item => {
-            let id = item.id;
-            const {JobStartDate__c, JobEndDate__c, Role__c, CompanyName__c, WorkLocation__c, Description__c, IsCurrent__c, CompanyLogo__c} = item.fields;
-            let JobStartDate = this.getValue(JobStartDate__c);
-            let JobEndDate = this.getValue(JobEndDate__c);
-            let Role = this.getValue(Role__c);
-            let CompanyName = this.getValue(CompanyName__c);
-            let WorkLocation = this.getValue(WorkLocation__c);
-            let Description = this.getValue(Description__c);
-            let IsCurrent = this.getValue(IsCurrent__c);
-            let CompanyLogo = this.getValue(CompanyLogo__c);
+            const {
+                JobStartDate__c,
+                JobEndDate__c,
+                Role__c,
+                CompanyName__c,
+                WorkLocation__c,
+                Description__c,
+                IsCurrent__c,
+                CompanyLogo__c,
+                Tech_Stack__c
+            } = item.fields;
 
-            return {id, JobStartDate, JobEndDate, Role, CompanyName, WorkLocation, Description, IsCurrent, CompanyLogo}
-        })
-        //console.log("workExperienceList", JSON.stringify(this.workExperienceList));
+            return {
+                id: item.id,
+                JobStartDate: this.getValue(JobStartDate__c),
+                JobEndDate: this.getValue(JobEndDate__c),
+                Role: this.getValue(Role__c),
+                CompanyName: this.getValue(CompanyName__c),
+                WorkLocation: this.getValue(WorkLocation__c),
+                Description: this.getValue(Description__c),
+                IsCurrent: this.getValue(IsCurrent__c),
+                CompanyLogo: this.getValue(CompanyLogo__c),
+                TechStack: this.getValue(Tech_Stack__c)?.split(',').map(item => item.trim())
+            };
+        });
     }
 
     getValue(data){

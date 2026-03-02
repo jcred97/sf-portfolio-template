@@ -6,6 +6,8 @@
 &quot;eei.png&quot;, IMAGE(&quot;/resource/PortfolioAssets/PortfolioAssets/Company/&quot; + ImageURL__c , &quot;company&quot;, 200, 200), 
 &quot;accenture_white.png&quot;, IMAGE(&quot;/resource/PortfolioAssets/PortfolioAssets/Company/&quot; + ImageURL__c , &quot;company&quot;, 200, 400),
 &quot;cloudstaff_white.png&quot;, IMAGE(&quot;/resource/PortfolioAssets/PortfolioAssets/Company/&quot; + ImageURL__c , &quot;company&quot;, 200, 200),
+&quot;quantrics.png&quot;, IMAGE(&quot;/resource/PortfolioAssets/PortfolioAssets/Company/&quot; + ImageURL__c , &quot;company&quot;, 200, 200),
+&quot;kulturra.png&quot;, IMAGE(&quot;/resource/PortfolioAssets/PortfolioAssets/Company/&quot; + ImageURL__c , &quot;company&quot;, 200, 200),
 IMAGE(&quot;/resource/PortfolioAssets/PortfolioAssets/Company/&quot; + ImageURL__c , &quot;company&quot;, 100, 100))</formula>
     <label>Company Logo</label>
     <required>false</required>
