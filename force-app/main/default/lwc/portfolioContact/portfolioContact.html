@@ -1,44 +1,150 @@
 <template>
+    <!-- ========================================
+         MAIN WRAPPER (2-COLUMN GRID LAYOUT)
+         Left: Contact Form
+         Right: Contact Information
+    ========================================= -->
     <div class="container">
+
+        <!-- ========================================
+             LEFT PANEL — CONTACT FORM
+             Handles user input + email submission
+        ========================================= -->
         <div class="content">
             <h1>Send me a message</h1>
             <hr>
-            <div class="slds-grid slds-gutters">
-                <div class="slds-col">
-                    <lightning-input type="text" name="firstName" placeholder="First Name*" value={firstName} onchange={inputHandler}> </lightning-input>
-                </div>
-                <div class="slds-col">
-                    <lightning-input type="text" name="lastName" placeholder="Last Name*" value={lastName} onchange={inputHandler}> </lightning-input>
-                </div>
-            </div>
-            <lightning-input type="email" name="emailAddress" placeholder="Email Address*" value={emailAddress} onchange={inputHandler}> </lightning-input>
-            <lightning-input type="text" name="subject" placeholder="Subject" value={subject} onchange={inputHandler}> </lightning-input>
-            <lightning-textarea name="message" placeholder="Type your message here" value={message} onchange={inputHandler}></lightning-textarea>
 
-            <button class="btn" onclick={sendDataAndEmail}>Send Message</button>
+            <!-- Success Message (Rendered after successful submission) -->
+            <template if:true={showSuccess}>
+                <div class={successClass}>
+                    ✅ Message sent successfully!
+                </div>
+            </template>
+
+            <!-- Error Message (Rendered if Apex/email fails) -->
+            <template if:true={showError}>
+                <div class={errorClass}>
+                    {errorMessage}
+                </div>
+            </template>
+
+            <!-- Full Name Input -->
+            <lightning-input
+                type="text"
+                name="fullName"
+                label="Full Name"
+                variant="label-hidden"
+                placeholder="Full Name*"
+                value={fullName}
+                required
+                onchange={inputHandler}>
+            </lightning-input>
+
+            <!-- Email Address Input -->
+            <lightning-input
+                type="email"
+                name="emailAddress"
+                label="Email Address"
+                variant="label-hidden"
+                placeholder="Email Address*"
+                value={emailAddress}
+                required
+                onchange={inputHandler}>
+            </lightning-input>
+
+            <!-- Message Text Area -->
+            <lightning-textarea
+                name="message"
+                label="Message"
+                variant="label-hidden"
+                placeholder="Type your message here*"
+                value={message}
+                required
+                onchange={inputHandler}>
+            </lightning-textarea>
+
+            <!-- Submit Button
+                 Disabled while request is processing
+                 Shows loading state dynamically -->
+            <button
+                class="btn"
+                onclick={sendDataAndEmail}
+                disabled={isLoading}>
+
+                <!-- Loading State -->
+                <template if:true={isLoading}>
+                    Sending...
+                </template>
+
+                <!-- Default State -->
+                <template if:false={isLoading}>
+                    Send Message
+                </template>
+            </button>
         </div>
+
+
+        <!-- ========================================
+             RIGHT PANEL — STATIC CONTACT DETAILS
+             Direct links to email + social profiles
+        ========================================= -->
         <div class="content-contact">
             <h1>Contact Details</h1>
             <hr>
+
+            <!-- Email Section -->
             <div class="content-email">
-                <div class="slds-grid">
+                <div class="slds-grid slds-align_absolute-center slds-grid_vertical-align-center">
+
+                    <!-- Salesforce Utility Email Icon -->
                     <div class="email-icon">
-                        <lightning-icon icon-name="utility:email" alternative-text="email" title="email"></lightning-icon>
+                        <lightning-icon
+                            icon-name="utility:email"
+                            alternative-text="email"
+                            title="email">
+                        </lightning-icon>
                     </div>
-                    <div>
+
+                    <!-- Email Display + Copy Functionality -->
+                    <div class="email-wrapper">
                         <h2>Email Me</h2>
-                        <h3>{email}</h3>   
+
+                        <div class="email-row">
+
+                            <!-- Mailto Link -->
+                            <a href={mailtoLink} class="email-link">
+                                {email}
+                            </a>
+
+                            <!-- Copy to Clipboard Icon -->
+                            <lightning-icon
+                                icon-name="utility:copy"
+                                alternative-text="Copy"
+                                title="Copy email"
+                                size="x-small"
+                                class="copy-icon"
+                                onclick={copyEmail}>
+                            </lightning-icon>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
 
-            <div class="slds-grid social-links">
-                <a href={linkedinUrl} target="_blank">
-                    <img src={linkedin} class="social-icon">
+            <!-- Social Media Links -->
+            <div class="social-links">
+
+                <!-- LinkedIn Profile -->
+                <a href={linkedinUrl} target="_blank" class="social-box">
+                    <img src={linkedin} alt="LinkedIn" class="social-icon">
                 </a>
-                <a href={trailblazerUrl} target="_blank">
-                    <img src={trailblazer} class="social-icon">
+
+                <!-- Trailhead / Trailblazer Profile -->
+                <a href={trailblazerUrl} target="_blank" class="social-box">
+                    <img src={trailblazer} alt="Trailhead" class="social-icon">
                 </a>
+
             </div>
         </div>
     </div>
